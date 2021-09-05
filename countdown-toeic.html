@@ -1,0 +1,364 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Toeic Reading Countdown timer!!!</title>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, user-scalable=1" name="viewport"/>
+<style>
+p {
+  text-align: center;
+  font-size: 16px;
+  margin: 10px;
+}
+#part-title {
+  font-size: 30px;
+  margin: 0;
+}
+#countdown {
+  font-size: 50px;
+  font-weight: bold;
+  margin: 5px;
+}
+#countdown-control {
+  margin: 0;
+}
+#anwsering {
+  font-size: 16px;
+  margin: 0px;
+}
+#anwsering table {
+  padding: 0px 50px;
+}
+</style>
+</head>
+<body>
+<table style="width: 100%">
+    <tr>
+        <td style="text-align: center;">
+            Part 5: <input type="number" id="time-part5" style="width: 50px;" value="15" />(m) &nbsp;&nbsp;
+            Part 6: <input type="number" id="time-part6" style="width: 50px;" value="8" />(m) &nbsp;&nbsp;
+            Part 7: <input type="number" id="time-part7" style="width: 50px;" value="52"/>(m) &nbsp;&nbsp;
+            <button onclick="reset()" style="background: black; color: white;">Reset</button>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 100%; text-align: center;">
+        <button id="butt-part5" onclick="changePart(5)">Part 5</button>
+        <button id="butt-part6" onclick="changePart(6)">Part 6</button>
+        <button id="butt-part7" onclick="changePart(7)">Part 7</button>
+        <button id="butt-part56" onclick="changePart(56)">Part 5 + 6</button>
+        <button id="butt-part67" onclick="changePart(67)">Part 6 + 7</button>
+        <button id="butt-part567" onclick="changePart(567)">Full Reading</button>
+        </td>
+    </tr>
+    <!-- <tr>
+        <td style="width: 100%"><p id="part-title">VUI LÒNG CHỌN PART</p></td>
+    </tr> -->
+    <tr>
+        <td style="width: 100%">
+            <p id="countdown">00m 00s</p>
+            <p id="countdown-control">
+                <button id="resume" onclick="resume()" style="font-size: 18px;" disabled> &#x23F5; </button>
+                <button id="pause" onclick="pause()" style=" font-size: 18px;" disabled> &#x23F8; </button>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 100%">
+            <p id="anwsering">
+                <table id="question-list-part5" style="width: 100%">
+                    <tr><td colspan="10"><p id="part5">PART 5</p></td></tr>
+                    <tr><td id="q101">101</td><td id="q102">102</td><td id="q103">103</td><td id="q104">104</td><td id="q105">105</td><td id="q106">106</td><td id="q107">107</td><td id="q108">108</td><td id="q109">109</td><td id="q110">110</td></tr>
+                    <tr><td id="q111">111</td><td id="q112">112</td><td id="q113">113</td><td id="q114">114</td><td id="q115">115</td><td id="q116">116</td><td id="q117">117</td><td id="q118">118</td><td id="q119">119</td><td id="q120">120</td></tr>
+                    <tr><td id="q121">121</td><td id="q122">122</td><td id="q123">123</td><td id="q124">124</td><td id="q125">125</td><td id="q126">126</td><td id="q127">127</td><td id="q128">128</td><td id="q129">129</td><td id="q130">130</td></tr>
+                </table>
+                <table id="question-list-part6" style="width: 100%">
+                    <tr><td colspan="10"><p id="part6">PART 6</p></td></tr>
+                    <tr><td id="q131">131</td><td id="q132">132</td><td id="q133">133</td><td id="q134">134</td><td id="q135">135</td><td id="q136">136</td><td id="q137">137</td><td id="q138">138</td><td id="q139">139</td><td id="q140">140</td></tr>
+                    <tr><td id="q141">141</td><td id="q142">142</td><td id="q143">143</td><td id="q144">144</td><td id="q145">145</td><td id="q146">146</td></tr>
+                </table>
+                <table id="question-list-part7" style="width: 100%">
+                    <tr><td colspan="10"><p id="part7">PART 7</p></td></tr>
+                    <tr><td id="q147">147</td><td id="q148">148</td><td id="q149">149</td><td id="q150">150</td><td id="q151">151</td><td id="q152">152</td><td id="q153">153</td><td id="q154">154</td><td id="q155">155</td><td id="q156">156</td></tr>
+                    <tr><td id="q157">157</td><td id="q158">158</td><td id="q159">159</td><td id="q160">160</td><td id="q161">161</td><td id="q162">162</td><td id="q163">163</td><td id="q164">164</td><td id="q165">165</td><td id="q166">166</td></tr>
+                    <tr><td id="q167">167</td><td id="q168">168</td><td id="q169">169</td><td id="q170">170</td><td id="q171">171</td><td id="q172">172</td><td id="q173">173</td><td id="q174">174</td><td id="q175">175</td><td id="q176">176</td></tr>
+                    <tr><td id="q177">177</td><td id="q178">178</td><td id="q179">179</td><td id="q180">180</td><td id="q181">181</td><td id="q182">182</td><td id="q183">183</td><td id="q184">184</td><td id="q185">185</td><td id="q186">186</td></tr>
+                    <tr><td id="q187">187</td><td id="q188">188</td><td id="q189">189</td><td id="q190">190</td><td id="q191">191</td><td id="q192">192</td><td id="q193">193</td><td id="q194">194</td><td id="q195">195</td><td id="q196">196</td></tr>
+                    <tr><td id="q197">197</td><td id="q198">198</td><td id="q199">199</td><td id="q200">200</td></tr>
+                </table>
+            </p>
+        </td>
+    </tr>
+</table>
+
+<script>
+    var currentPart = 0;
+    var part5Time = 15;
+    var part6Time = 8;
+    var part7Time = 52;
+    var part56Time = part5Time + part6Time;
+    var part67Time = part6Time + part7Time;
+    var readingTime = part5Time + part6Time + part7Time;
+
+    var state = -1;
+    var pauseTime;
+
+    // Set the date we're counting down to
+    var countDownDate = new Date().getTime();
+    
+    var interval;
+
+    function reset() {
+        document.getElementById("time-part5").value = part5Time;
+        document.getElementById("time-part6").value = part6Time;
+        document.getElementById("time-part7").value = part7Time;
+    }
+
+    function pause() {
+        state = 0;
+        document.getElementById("resume").disabled = false;
+        document.getElementById("pause").disabled = true;
+        pauseTime = new Date().getTime();
+        clearInterval(interval);
+    }
+
+    function resume() {
+        state = 1;
+        document.getElementById("resume").disabled = true;
+        document.getElementById("pause").disabled = false;
+        var resumeTime = new Date().getTime();
+        var delta = resumeTime - pauseTime;
+        countDownDate += delta;
+        runCountdown();
+    }
+
+    function changePart(part) {
+        currentPart = part;
+        part5Time = document.getElementById("time-part5").value;
+        part6Time = document.getElementById("time-part6").value;
+        part7Time = document.getElementById("time-part7").value;
+        part56Time = Number(part5Time) + Number(part6Time);
+        part67Time = Number(part6Time) + Number(part7Time);
+        readingTime = Number(part5Time) + Number(part6Time) + Number(part7Time);
+        
+        clearStyle();
+        state = 1;
+        document.getElementById("pause").disabled = false;
+        if (currentPart == 5) {
+            //document.getElementById("part-title").innerHTML = "Reading Part " + currentPart;
+            document.getElementById("butt-part5").style.background = "#83f181";
+        } else if (currentPart == 6) {
+            //document.getElementById("part-title").innerHTML = "Reading Part " + currentPart;
+            document.getElementById("butt-part6").style.background = "#83f181";
+        } else if (currentPart == 7) {
+            //document.getElementById("part-title").innerHTML = "Reading Part " + currentPart;
+            document.getElementById("butt-part7").style.background = "#83f181";
+        } else if (currentPart == 567) {
+            //document.getElementById("part-title").innerHTML = "FULL Reading!";
+            document.getElementById("butt-part567").style.background = "#83f181";
+        } else if (currentPart == 56) {
+            //document.getElementById("part-title").innerHTML = "Reading Part 5 & 6";
+            document.getElementById("butt-part56").style.background = "#83f181";
+        } else if (currentPart == 67) {
+            //document.getElementById("part-title").innerHTML = "Reading Part 6 & 7";
+            document.getElementById("butt-part67").style.background = "#83f181";
+
+        }
+        
+        displayPart();
+
+        calculateDateTimeEnd();
+
+        runCountdown();
+    }
+
+    function clearStyle() {
+        document.getElementById("countdown").innerHTML = "00m 00s";
+        document.getElementById("butt-part5").style.background = "";
+        document.getElementById("butt-part6").style.background = "";
+        document.getElementById("butt-part7").style.background = "";
+        document.getElementById("butt-part56").style.background = "";
+        document.getElementById("butt-part67").style.background = "";
+        document.getElementById("butt-part567").style.background = "";
+        
+        for (var i = 101; i <= 200; i++) {
+            document.getElementById("q" + i).style.fontSize = "16px";
+            document.getElementById("q" + i).style.fontWeight = ""
+            document.getElementById("q" + i).style.color = "black";
+        }
+        for (var i = 5; i <= 7; i++) {
+            document.getElementById("part" + i).style.fontSize = "16px";
+            document.getElementById("part" + i).style.fontWeight = ""
+            document.getElementById("part" + i).style.color = "black";
+        }   
+    }
+
+    function displayPart() {
+        document.getElementById("question-list-part5").style.display = "none";
+        document.getElementById("question-list-part6").style.display = "none";
+        document.getElementById("question-list-part7").style.display = "none";
+        if (currentPart == 5) document.getElementById("question-list-part5").style.display = "";
+        if (currentPart == 6) document.getElementById("question-list-part6").style.display = "";
+        if (currentPart == 7) document.getElementById("question-list-part7").style.display = "";
+        if (currentPart == 56) {
+            document.getElementById("question-list-part5").style.display = "";
+            document.getElementById("question-list-part6").style.display = "";
+        }
+        if (currentPart == 67) {
+            document.getElementById("question-list-part6").style.display = "";
+            document.getElementById("question-list-part7").style.display = "";
+        }
+        if (currentPart == 567) {
+            document.getElementById("question-list-part5").style.display = "";
+            document.getElementById("question-list-part6").style.display = "";
+            document.getElementById("question-list-part7").style.display = "";
+        }
+    }
+
+    function calculateDateTimeEnd() {
+        // Get today's date and time
+        var now = new Date().getTime();
+        if (currentPart == 5) countDownDate = now + part5Time * 60 * 1000;
+        else if (currentPart == 6) countDownDate = now + part6Time * 60 * 1000;
+        else if (currentPart == 7) countDownDate = now + part7Time * 60 * 1000;
+        else if (currentPart == 56) countDownDate = now + part56Time * 60 * 1000;
+        else if (currentPart == 67) countDownDate = now + part67Time * 60 * 1000;
+        else if (currentPart == 567) countDownDate = now + readingTime * 60 * 1000;
+    }
+
+    function displayCountdown() {
+        // Get today's date and time
+        var now = new Date().getTime();
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+        // Time calculations for minutes and seconds
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // Output the result in an element with id="countdown"
+        document.getElementById("countdown").innerHTML = (hours * 60 + minutes) + "m " + seconds + "s ";
+        // If the count down is over, write some text 
+        if (distance < 0) {
+            clearInterval(interval);
+            document.getElementById("countdown").innerHTML = "EXPIRED";
+        }
+        displayQuestionList(hours, minutes, seconds);
+    }
+
+    function runCountdown() {
+        clearInterval(interval);
+        // Update the count down every 1 second
+        interval = setInterval(displayCountdown, 1000);
+    }
+
+    function displayQuestionList(hours, minutes, seconds) {
+        
+        if (currentPart == 567) {
+            timePerPart = readingTime;
+            startQNum = 101;
+            endQNum = 200;
+        }
+
+        var remainTime = hours * 60 * 60 + minutes * 60 + seconds;
+
+        if (currentPart == 5 || currentPart == 6 || currentPart == 7) {
+            displayQuestionListPerPart(remainTime, currentPart);
+        } else if (currentPart == 56) {
+            displayQuestionListPart56(remainTime)
+        } else if (currentPart == 67) {
+            displayQuestionListPart67(remainTime)
+        } else if (currentPart == 567) {
+            displayQuestionListPart567(remainTime)
+        }
+    }
+
+    function displayQuestionListPerPart(remainTime, cp) {
+        var startQNum = 0;
+        var endQNum = 0;
+        var totalQNum = 0;
+        var timePerPart = 0;
+        if (cp == 5) {
+            timePerPart = part5Time;
+            startQNum = 101;
+            endQNum = 130;
+        }
+        if (cp == 6) {
+            timePerPart = part6Time;
+            startQNum = 131;
+            endQNum = 146;
+        }
+        if (cp == 7) {
+            timePerPart = part7Time;
+            startQNum = 147;
+            endQNum = 200;
+        }
+        totalQNum = endQNum - startQNum + 1;
+        var tpq = timePerPart * 60 / totalQNum;
+        var currAQ = endQNum - Math.floor(remainTime / tpq);
+        if (currAQ >= 101) highlineQuestion("part5");
+        if (currAQ >= 131) highlineQuestion("part6");
+        if (currAQ >= 147) highlineQuestion("part7");
+        highlineQuestion("q" + currAQ);
+    }
+
+    function displayQuestionListPart56(remainTime) {
+        var cp = 0;
+        var p5s = part56Time * 60;
+        var p5e = part6Time * 60;
+        if (p5s >= remainTime && remainTime >= p5e) {
+            cp = 5;
+            highlineQuestion("part" + cp);
+            displayQuestionListPerPart(remainTime - p5e, cp);
+        } else {
+            cp = 6;
+            highlineQuestion("part" + cp);
+            displayQuestionListPerPart(remainTime, cp);
+        }
+    }
+
+    function displayQuestionListPart67(remainTime) {
+        var cp = 0;
+        var p6s = part67Time * 60;
+        var p6e = part7Time * 60;
+        if (p6s >= remainTime && remainTime >= p6e) {
+            cp = 6;
+            highlineQuestion("part" + cp);
+            displayQuestionListPerPart(remainTime - p6e, cp);
+        } else {
+            cp = 7;
+            highlineQuestion("part" + cp);
+            displayQuestionListPerPart(remainTime, cp);
+        }
+    }
+
+    function displayQuestionListPart567(remainTime) {
+        var cp = 0;
+        var p5s = readingTime * 60;
+        var p5e = part67Time * 60;
+        var p6s = part67Time * 60;
+        var p6e = part7Time * 60;
+        if (p5s >= remainTime && remainTime >= p5e) {
+            cp = 5;
+            highlineQuestion("part" + cp);
+            displayQuestionListPerPart(remainTime - p5e, cp);
+        } else if (p6s >= remainTime && remainTime >= p6e) {
+            cp = 6;
+            highlineQuestion("part" + cp);
+            displayQuestionListPerPart(remainTime - p6e, cp);
+        } else {
+            cp = 7;
+            highlineQuestion("part" + cp);
+            displayQuestionListPerPart(remainTime, cp);
+        }
+    }
+
+    function highlineQuestion(id) {
+        document.getElementById(id).style.fontSize = "18px";
+        document.getElementById(id).style.fontWeight = "bold";
+        document.getElementById(id).style.color = "red";
+    }
+
+</script>
+
+</body>
+</html>
